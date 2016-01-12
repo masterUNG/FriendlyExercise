@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpenHelper extends SQLiteOpenHelper{
 
     //Explicit
+    public static final String tag = "friend";
     public static final String DATABASE_NAME = "Friend.db";
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_USER_TABLE = "create table userTABLE (" +
