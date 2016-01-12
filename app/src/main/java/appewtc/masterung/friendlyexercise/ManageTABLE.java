@@ -48,6 +48,28 @@ public class ManageTABLE {
 
     }   // Constructor
 
+    public long addNewValueToSubject(String strSubject,
+                                     String strQuestion,
+                                     String strImage,
+                                     String strChoice1,
+                                     String strChoice2,
+                                     String strChoice3,
+                                     String strChoice4,
+                                     String strAnswer) {
+
+        ContentValues objContentValues = new ContentValues();
+        objContentValues.put(COLUMN_Subject, strSubject);
+        objContentValues.put(COLUMN_Question, strQuestion);
+        objContentValues.put(COLUMN_Image, strImage);
+        objContentValues.put(COLUMN_Choice1, strChoice1);
+        objContentValues.put(COLUMN_Choice2, strChoice2);
+        objContentValues.put(COLUMN_Choice3, strChoice3);
+        objContentValues.put(COLUMN_Choice4, strChoice4);
+        objContentValues.put(COLUMN_Answer, strAnswer);
+
+        return writeSqLiteDatabase.insert(TABLE_SUBJECT, null, objContentValues);
+    }
+
     public long addNewValueToUser(String strUser,
                                   String strPassword,
                                   String strStatus,
