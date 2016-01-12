@@ -1,5 +1,6 @@
 package appewtc.masterung.friendlyexercise;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,7 +20,16 @@ public class MainActivity extends AppCompatActivity {
         //Test Add Value
         //testAddValue();
 
+        //Delete All SQLite
+        deleteAllSQLite();
+
     }   // Main Method
+
+    private void deleteAllSQLite() {
+        SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME, MODE_PRIVATE, null);
+        objSqLiteDatabase.delete(ManageTABLE.TABLE_USR, null, null);
+        objSqLiteDatabase.delete(ManageTABLE.TABLE_SUBJECT, null, null);
+    }
 
     private void testAddValue() {
         String strTest = "Test";
