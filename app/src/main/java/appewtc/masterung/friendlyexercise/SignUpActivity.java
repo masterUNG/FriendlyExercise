@@ -1,6 +1,7 @@
 package appewtc.masterung.friendlyexercise;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -50,10 +51,20 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
 
             //No Space
-
+            updateNewStudent();
 
         } // if
 
     }   // clickSaveData
+
+    private void updateNewStudent() {
+
+        //Setup New Policy
+        StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(myPolicy);
+
+
+
+    }   // updateNewStudent
 
 }   // Main Class
