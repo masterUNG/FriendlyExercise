@@ -16,6 +16,15 @@ public class MainActivity extends AppCompatActivity {
         //Connected
         objManageTABLE = new ManageTABLE(this);
 
+        //Test Add Value
+        testAddValue();
+
     }   // Main Method
+
+    private void testAddValue() {
+        String strTest = "Test";
+        objManageTABLE.addNewValueToUser(strTest, strTest, strTest, strTest, strTest,
+                strTest, strTest, strTest, strTest, strTest, strTest, strTest, strTest);
+    }
 
 }   // Main Class
