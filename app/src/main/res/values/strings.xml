@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Friendly Exercise</string>
+
+    <string name="subject1">ชื่อวิชาที่ 1</string>
+    <string name="subject2">ชื่อวิชาที่ 2</string>
+    <string name="subject3">ชื่อวิชาที่ 3</string>
+    <string name="subject4">ชื่อวิชาที่ 4</string>
+
 </resources>

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText userEditText, passwordEditText;
     private RadioGroup positionRadioGroup;
     private RadioButton studentRadioButton, teacherRadioButton;
-    private String userString, passwordString, positionString, idString;
+    private String userString, passwordString, positionString = "0", idString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
