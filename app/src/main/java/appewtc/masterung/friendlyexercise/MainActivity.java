@@ -16,8 +16,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,8 +91,80 @@ public class MainActivity extends AppCompatActivity {
 
 
             //2. Create JSON String
+            String strJSON = null;
+            String strLine = null;
+
+            try {
+
+                BufferedReader objBufferedReader = new BufferedReader(new InputStreamReader(objInputStream, "UTF-8"));
+                StringBuilder objStringBuilder = new StringBuilder();
+
+                while ((strLine = objBufferedReader.readLine()) != null) {
+                    objStringBuilder.append(strLine);
+                }   // while
+
+                objInputStream.close();
+                strJSON = objStringBuilder.toString();
+
+            } catch (Exception e) {
+                Log.d("friend", "JSON String ==> " + e.toString());
+            }
+
 
             //3. Update to SQLite
+            try {
+
+                JSONArray objJsonArray = new JSONArray(strJSON);
+
+                for (int i = 0; i < objJsonArray.length(); i++) {
+
+                    JSONObject object = objJsonArray.getJSONObject(i);
+                    switch (intTimes) {
+                        case 1:
+
+                            //userTABLE
+                            String strUser = object.getString(ManageTABLE.COLUMN_USER);
+                            String strPassword = object.getString(ManageTABLE.COLUMN_PASSWORD);
+                            String strStatus = object.getString(ManageTABLE.COLUMN_STATUS);
+                            String strName = object.getString(ManageTABLE.COLUMN_NAME);
+                            String strSurname = object.getString(ManageTABLE.COLUMN_SURNAME);
+                            String strSub1 = object.getString(ManageTABLE.COLUMN_SUBJECT1);
+                            String strDateSub1 = object.getString(ManageTABLE.COLUMN_DATESUB1);
+                            String strSub2 = object.getString(ManageTABLE.COLUMN_SUBJECT2);
+                            String strDateSub2 = object.getString(ManageTABLE.COLUMN_DATESUB2);
+                            String strSub3 = object.getString(ManageTABLE.COLUMN_SUBJECT3);
+                            String strDateSub3 = object.getString(ManageTABLE.COLUMN_DATESUB3);
+                            String strSub4 = object.getString(ManageTABLE.COLUMN_SUBJECT4);
+                            String strDateSub4 = object.getString(ManageTABLE.COLUMN_DATESUB4);
+
+                            objManageTABLE.addNewValueToUser(strUser, strPassword, strStatus,
+                                    strName, strSurname, strSub1, strDateSub1, strSub2, strDateSub2,
+                                    strSub3, strDateSub3, strSub4, strDateSub4);
+
+                            break;
+                        case 2:
+
+                            //subjectTABLE
+                            String strSubject = object.getString(ManageTABLE.COLUMN_Subject);
+                            String strQuestion = object.getString(ManageTABLE.COLUMN_Question);
+                            String strImage = object.getString(ManageTABLE.COLUMN_Image);
+                            String strChoice1 = object.getString(ManageTABLE.COLUMN_Choice1);
+                            String strChoice2 = object.getString(ManageTABLE.COLUMN_Choice2);
+                            String strChoice3 = object.getString(ManageTABLE.COLUMN_Choice3);
+                            String strChoice4 = object.getString(ManageTABLE.COLUMN_Choice4);
+                            String strAnswer = object.getString(ManageTABLE.COLUMN_Answer);
+
+                            objManageTABLE.addNewValueToSubject(strSubject, strQuestion, strImage,
+                                    strChoice1, strChoice2, strChoice3, strChoice4, strAnswer);
+
+                            break;
+                    }   // switch
+
+                }   // for
+
+            } catch (Exception e) {
+                Log.d("friend", "Update SQLite ==> " + e.toString());
+            }
 
             intTimes += 1;
         }   // while
