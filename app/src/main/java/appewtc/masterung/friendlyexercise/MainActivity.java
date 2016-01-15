@@ -2,12 +2,22 @@ package appewtc.masterung.friendlyexercise;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +52,46 @@ public class MainActivity extends AppCompatActivity {
 
     private void synJSONtoSQLite() {
 
+        //Setup Policy
+        StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(myPolicy);
+
+        int intTimes = 1;
+        while (intTimes <= 2) {
+
+            //1. Create InputStream
+            InputStream objInputStream = null;
+            String strURLuser = "http://swiftcodingthai.com/pop/php_get_data_master.php";
+            String strURLsubject = "http://swiftcodingthai.com/pop/php_get_subject_master.php";
+            HttpPost objHttpPost = null;
+
+            try {
+
+                HttpClient objHttpClient = new DefaultHttpClient();
+                switch (intTimes) {
+                    case 1:
+                        objHttpPost = new HttpPost(strURLuser);
+                        break;
+                    case 2:
+                        objHttpPost = new HttpPost(strURLsubject);
+                        break;
+                }   //switch
+
+                HttpResponse objHttpResponse = objHttpClient.execute(objHttpPost);
+                HttpEntity objHttpEntity = objHttpResponse.getEntity();
+                objInputStream = objHttpEntity.getContent();
+
+            } catch (Exception e) {
+                Log.d("friend", "InputStream ==> " + e.toString());
+            }
+
+
+            //2. Create JSON String
+
+            //3. Update to SQLite
+
+            intTimes += 1;
+        }   // while
 
 
     }   // synJSONtoSQLite
