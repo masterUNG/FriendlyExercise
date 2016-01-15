@@ -2,6 +2,7 @@ package appewtc.masterung.friendlyexercise;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -47,6 +48,37 @@ public class ManageTABLE {
         readSqLiteDatabase = objMyOpenHelper.getReadableDatabase();
 
     }   // Constructor
+
+    public String[] searchUser(String strUser) {
+
+        try {
+
+            String[] resultStrings = null;
+            Cursor objCursor = readSqLiteDatabase.query(TABLE_USR,
+                    new String[]{COLUMN_ID, COLUMN_USER, COLUMN_PASSWORD, COLUMN_STATUS,
+                    COLUMN_NAME, COLUMN_SURNAME, COLUMN_SUBJECT1, COLUMN_DATESUB1,
+                    COLUMN_SUBJECT2, COLUMN_DATESUB2, COLUMN_SUBJECT3, COLUMN_DATESUB3,
+                    COLUMN_SUBJECT4, COLUMN_DATESUB4},
+                    COLUMN_USER + "=?",
+                    new String[]{String.valueOf(strUser)},
+                    null, null, null, null);
+
+            if (objCursor != null) {
+                if (objCursor.moveToFirst()) {
+                    resultStrings = new String[objCursor.getColumnCount()];
+                    for (int i=0;i<objCursor.getColumnCount();i++) {
+                        resultStrings[i] = objCursor.getString(i);
+                    }   // for
+                }   //if
+            }   // if
+            objCursor.close();
+            return resultStrings;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     public long addNewValueToSubject(String strSubject,
                                      String strQuestion,
