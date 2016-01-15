@@ -35,7 +35,16 @@ public class MainActivity extends AppCompatActivity {
         //Delete All SQLite
         deleteAllSQLite();
 
+        //Synchronize JSON to SQLite
+        synJSONtoSQLite();
+
     }   // Main Method
+
+    private void synJSONtoSQLite() {
+
+
+
+    }   // synJSONtoSQLite
 
     public void clickSignIn(View view) {
 
