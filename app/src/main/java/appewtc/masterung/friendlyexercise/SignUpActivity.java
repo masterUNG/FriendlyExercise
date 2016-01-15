@@ -82,6 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
             objNameValuePairs.add(new BasicNameValuePair("Password", passwordString));
             objNameValuePairs.add(new BasicNameValuePair("Name", nameString));
             objNameValuePairs.add(new BasicNameValuePair("Surname", surnameString));
+            objNameValuePairs.add(new BasicNameValuePair("Status", "0"));
 
             String strURL = "http://swiftcodingthai.com/pop/php_add_data_master.php";
             HttpClient objHttpClient = new DefaultHttpClient();
