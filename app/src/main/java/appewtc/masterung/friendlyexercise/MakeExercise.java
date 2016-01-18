@@ -15,6 +15,7 @@ public class MakeExercise extends AppCompatActivity {
     private EditText questionEditText, choice1EditText, choice2EditText,
             choice3EditText, choice4EditText;
     private RadioGroup answerRadioGroup;
+    private boolean answerABoolean = true; //Not Choose
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,19 @@ public class MakeExercise extends AppCompatActivity {
         //Show Subject
         showSubject();
 
+        //RadioGroup Controller
+        radioController();
+
     }   // Main Method
+
+    private void radioController() {
+        answerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                answerABoolean = false;
+            }
+        });
+    }   // radioController
 
     private void bindWidget() {
 
@@ -36,6 +49,7 @@ public class MakeExercise extends AppCompatActivity {
         choice2EditText = (EditText) findViewById(R.id.editText9);
         choice3EditText = (EditText) findViewById(R.id.editText10);
         choice4EditText = (EditText) findViewById(R.id.editText11);
+        answerRadioGroup = (RadioGroup) findViewById(R.id.ragAnswer);
 
     }   // bindWidget
 
@@ -47,10 +61,10 @@ public class MakeExercise extends AppCompatActivity {
         choice3String = choice3EditText.getText().toString().trim();
         choice4String = choice4EditText.getText().toString().trim();
 
-        if (checkSpace()) {
+        if (checkSpace() || answerABoolean) {
             //Have Space
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
-            objMyAlertDialog.errorDialog(MakeExercise.this, "Have Space", "Please Fill All Every Blank");
+            objMyAlertDialog.errorDialog(MakeExercise.this, "Have Space", "Please Fill All Every Blank and Choose True Answer");
         } else {
             //No Space
         }
