@@ -6,4 +6,11 @@
     <string name="subject3">ชื่อวิชาที่ 3</string>
     <string name="subject4">ชื่อวิชาที่ 4</string>
 
+    <string name="question">คำถาม</string>
+    <string name="choice1">ก.</string>
+    <string name="choice2">ข.</string>
+    <string name="choice3">ค.</string>
+    <string name="choice4">ง.</string>
+    <string name="answer">ข้อที่ถูก</string>
+
 </resources>
