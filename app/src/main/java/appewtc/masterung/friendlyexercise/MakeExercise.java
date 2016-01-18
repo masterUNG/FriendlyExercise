@@ -3,11 +3,22 @@ package appewtc.masterung.friendlyexercise;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 
 public class MakeExercise extends AppCompatActivity {
 
@@ -129,6 +140,30 @@ public class MakeExercise extends AppCompatActivity {
     }   // confirmValue
 
     private void upLoadToMySQL() {
+
+        StrictMode.ThreadPolicy myThreadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(myThreadPolicy);
+
+        try {
+
+            ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
+            objNameValuePairs.add(new BasicNameValuePair("isAdd", "true"));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Subject, subjectString));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Question, questtionString));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Choice1, choice1String));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Choice2, choice2String));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Choice3, choice3String));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Choice4, choice4String));
+            objNameValuePairs.add(new BasicNameValuePair(ManageTABLE.COLUMN_Answer, answerString));
+
+            HttpClient objHttpClient = new DefaultHttpClient();
+            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/pop/php_add_data_subject.php");
+            objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
+            objHttpClient.execute(objHttpPost);
+
+        } catch (Exception e) {
+            Toast.makeText(MakeExercise.this, "Cannot Update Value to Server", Toast.LENGTH_SHORT).show();
+        }
 
     }   // upLoadToMySQL
 
