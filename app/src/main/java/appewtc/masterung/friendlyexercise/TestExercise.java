@@ -17,11 +17,12 @@ public class TestExercise extends AppCompatActivity {
     //Explicit
     private TextView titleTextView, questionTextView, showTimesTextView;
     private String subjectString;
-    private String[] questionStrings, choice1Strings, choice2Strings, choice3Strings, choice4Strings;
+    private String[] questionStrings, choice1Strings, choice2Strings,
+            choice3Strings, choice4Strings, answerStrings;
     private boolean statusABoolean = true, radioABoolean = false;
     private RadioGroup answerRadioGroup;
     private RadioButton choice1RadioButton, choice2RadioButton, choice3RadioButton, choice4RadioButton;
-    private int timesAnInt, currentTimesAnInt = 0, scoreAnInt = 0;
+    private int timesAnInt, currentTimesAnInt = 0, scoreAnInt = 0, chooseAnInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,25 @@ public class TestExercise extends AppCompatActivity {
 
                 radioABoolean = true;
 
+                switch (i) {
+                    case R.id.radioButton7:
+                        chooseAnInt = 1;
+                        break;
+                    case R.id.radioButton8:
+                        chooseAnInt = 2;
+                        break;
+                    case R.id.radioButton9:
+                        chooseAnInt = 3;
+                        break;
+                    case R.id.radioButton10:
+                        chooseAnInt = 4;
+                        break;
+                    default:
+                        chooseAnInt = 0;
+                        break;
+
+                }   // switch
+
             }   // event
         });
     }
@@ -77,8 +97,9 @@ public class TestExercise extends AppCompatActivity {
         String tag = "changeView";
 
         //Check Score
-//        if () {
-//        }   // if
+        if (chooseAnInt == Integer.parseInt(answerStrings[currentTimesAnInt])) {
+            scoreAnInt += 1;
+        }   // if
 
         currentTimesAnInt += 1;
         Log.d(tag, "currentTime = " + currentTimesAnInt);
@@ -98,6 +119,8 @@ public class TestExercise extends AppCompatActivity {
         } else {
             //Stop
             Intent objIntent = new Intent(TestExercise.this, ShowScoreActivity.class);
+            Log.d("score", "Score = " + scoreAnInt);
+            objIntent.putExtra("Score", scoreAnInt);
             startActivity(objIntent);
         }
 
@@ -116,6 +139,7 @@ public class TestExercise extends AppCompatActivity {
             choice2Strings = new String[objCursor.getCount()];
             choice3Strings = new String[objCursor.getCount()];
             choice4Strings = new String[objCursor.getCount()];
+            answerStrings = new String[objCursor.getCount()];
             timesAnInt = objCursor.getCount();
 
             for (int i = 0; i < objCursor.getCount(); i++) {
@@ -125,6 +149,7 @@ public class TestExercise extends AppCompatActivity {
                 choice2Strings[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Choice2));
                 choice3Strings[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Choice3));
                 choice4Strings[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Choice4));
+                answerStrings[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Answer));
 
                 objCursor.moveToNext();
             }   // for
