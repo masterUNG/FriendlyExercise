@@ -18,10 +18,10 @@ public class TestExercise extends AppCompatActivity {
     private TextView titleTextView, questionTextView, showTimesTextView;
     private String subjectString;
     private String[] questionStrings, choice1Strings, choice2Strings, choice3Strings, choice4Strings;
-    private boolean statusABoolean = true;
+    private boolean statusABoolean = true, radioABoolean = false;
     private RadioGroup answerRadioGroup;
     private RadioButton choice1RadioButton, choice2RadioButton, choice3RadioButton, choice4RadioButton;
-    private int timesAnInt, currentTimesAnInt = 0;
+    private int timesAnInt, currentTimesAnInt = 0, scoreAnInt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +37,37 @@ public class TestExercise extends AppCompatActivity {
         //Get Exercise
         getExercise();
 
+        //Radio Controller
+        radioController();
+
+
+
     }   // Main Method
+
+    private void radioController() {
+        answerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                radioABoolean = true;
+
+            }   // event
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+    }
 
     public void clickAnswerTest(View view) {
 
-        if (statusABoolean) {
+        if (statusABoolean && radioABoolean) {
             //Have data
             changeView();
 
         } else {
-            Toast.makeText(TestExercise.this, "ยังไม่ได้ออกข้อสอบ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TestExercise.this, "เลือกตำตอบ หรือ ยังไม่ได้ออกข้อสอบ", Toast.LENGTH_SHORT).show();
         }
 
     }   // clickAnswer
@@ -54,6 +75,11 @@ public class TestExercise extends AppCompatActivity {
     private void changeView() {
 
         String tag = "changeView";
+
+        //Check Score
+//        if () {
+//        }   // if
+
         currentTimesAnInt += 1;
         Log.d(tag, "currentTime = " + currentTimesAnInt);
 
@@ -65,6 +91,9 @@ public class TestExercise extends AppCompatActivity {
                     choice3Strings[currentTimesAnInt],
                     choice4Strings[currentTimesAnInt]
                     );
+
+
+
 
         } else {
             //Stop
@@ -107,6 +136,7 @@ public class TestExercise extends AppCompatActivity {
 
 
         } else {
+            //Cursor ไม่มีข้อมูล
             statusABoolean = false;
         } //if
 
@@ -132,7 +162,7 @@ public class TestExercise extends AppCompatActivity {
     private void bindWidget() {
         titleTextView = (TextView) findViewById(R.id.txtTitleTest);
         questionTextView = (TextView) findViewById(R.id.textView17);
-        answerRadioGroup = (RadioGroup) findViewById(R.id.ragAnswer);
+        answerRadioGroup = (RadioGroup) findViewById(R.id.ragChooseAnswer);
         choice1RadioButton = (RadioButton) findViewById(R.id.radioButton7);
         choice2RadioButton = (RadioButton) findViewById(R.id.radioButton8);
         choice3RadioButton = (RadioButton) findViewById(R.id.radioButton9);
