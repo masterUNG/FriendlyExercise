@@ -1,9 +1,11 @@
 package appewtc.masterung.friendlyexercise;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -13,12 +15,13 @@ import android.widget.Toast;
 public class TestExercise extends AppCompatActivity {
 
     //Explicit
-    private TextView titleTextView, questionTextView;
+    private TextView titleTextView, questionTextView, showTimesTextView;
     private String subjectString;
     private String[] questionStrings, choice1Strings, choice2Strings, choice3Strings, choice4Strings;
     private boolean statusABoolean = true;
     private RadioGroup answerRadioGroup;
     private RadioButton choice1RadioButton, choice2RadioButton, choice3RadioButton, choice4RadioButton;
+    private int timesAnInt, currentTimesAnInt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +43,37 @@ public class TestExercise extends AppCompatActivity {
 
         if (statusABoolean) {
             //Have data
-
+            changeView();
 
         } else {
             Toast.makeText(TestExercise.this, "ยังไม่ได้ออกข้อสอบ", Toast.LENGTH_SHORT).show();
         }
 
     }   // clickAnswer
+
+    private void changeView() {
+
+        String tag = "changeView";
+        currentTimesAnInt += 1;
+        Log.d(tag, "currentTime = " + currentTimesAnInt);
+
+        if (currentTimesAnInt < timesAnInt) {
+            //Continue
+            showView(questionStrings[currentTimesAnInt],
+                    choice1Strings[currentTimesAnInt],
+                    choice2Strings[currentTimesAnInt],
+                    choice3Strings[currentTimesAnInt],
+                    choice4Strings[currentTimesAnInt]
+                    );
+
+        } else {
+            //Stop
+            Intent objIntent = new Intent(TestExercise.this, ShowScoreActivity.class);
+            startActivity(objIntent);
+        }
+
+
+    }   // changeView
 
     private void getExercise() {
 
@@ -60,6 +87,7 @@ public class TestExercise extends AppCompatActivity {
             choice2Strings = new String[objCursor.getCount()];
             choice3Strings = new String[objCursor.getCount()];
             choice4Strings = new String[objCursor.getCount()];
+            timesAnInt = objCursor.getCount();
 
             for (int i = 0; i < objCursor.getCount(); i++) {
 
@@ -92,6 +120,8 @@ public class TestExercise extends AppCompatActivity {
         choice3RadioButton.setText(choice3String);
         choice4RadioButton.setText(choice4String);
 
+        showTimesTextView.setText("แบบผึกหัด มีทั้งหมด " + Integer.toString(timesAnInt) + " ข้อ");
+
     }   // showView
 
     private void showTitle() {
@@ -107,6 +137,7 @@ public class TestExercise extends AppCompatActivity {
         choice2RadioButton = (RadioButton) findViewById(R.id.radioButton8);
         choice3RadioButton = (RadioButton) findViewById(R.id.radioButton9);
         choice4RadioButton = (RadioButton) findViewById(R.id.radioButton10);
+        showTimesTextView = (TextView) findViewById(R.id.txtShowTime);
 
     }
 

@@ -20,7 +20,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ServiceActivity" />
         <activity android:name=".TestExercise" />
-        <activity android:name=".MakeExercise"></activity>
+        <activity android:name=".MakeExercise" />
+        <activity android:name=".ShowScoreActivity"></activity>
     </application>
 
 </manifest>

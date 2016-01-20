@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitleTest"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="#96ffffff"
         android:padding="20dp">
 
@@ -74,7 +74,17 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="clickAnswerTest"
         android:text="answer"
         android:id="@+id/button5"
         android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/txtShowTime"
+        android:textSize="@dimen/h2"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtTitleTest" />
 </RelativeLayout>
